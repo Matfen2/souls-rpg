@@ -2,6 +2,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import connectDB from "./config/db.js";
+import gameRoutes from "./routes/gameRoutes.js"; // ✅ AJOUT DES ROUTES
 
 // Configuration des variables d'environnement
 dotenv.config();
@@ -31,10 +32,19 @@ app.get("/", (req, res) => {
     endpoints: {
       games: "/api/games",
       gameById: "/api/games/:id",
-      stats: "/api/games/stats"
+      search: "/api/games/search?q=query",
+      filter: "/api/games/filter",
+      byGenre: "/api/games/genre/:genre",
+      byPlatform: "/api/games/platform/:platform",
+      similar: "/api/games/:id/similar"
     }
   });
 });
+
+// ========================================
+// ROUTES API - AJOUT ICI
+// ========================================
+app.use("/api/games", gameRoutes); // ✅ LIGNE IMPORTANTE
 
 // Middleware de gestion des routes non trouvées (404)
 app.use((req, res) => {
@@ -60,7 +70,15 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`\n🚀 Serveur démarré sur http://localhost:${PORT}`);
-  console.log(`📝 Environnement : ${process.env.NODE_ENV || "development"}`);
+  console.log(`📁 Environnement : ${process.env.NODE_ENV || "development"}`);
   console.log(`🌐 Frontend autorisé : ${process.env.CLIENT_URL || "http://localhost:5173"}`);
-  console.log(`📡 API disponible sur : http://localhost:${PORT}/api/games\n`);
+  console.log(`\n📡 Routes API disponibles :`);
+  console.log(`   GET    http://localhost:${PORT}/api/games`);
+  console.log(`   POST   http://localhost:${PORT}/api/games`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/:id`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/search?q=query`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/filter`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/genre/:genre`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/platform/:platform`);
+  console.log(`   GET    http://localhost:${PORT}/api/games/:id/similar\n`);
 });
