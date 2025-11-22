@@ -1,0 +1,35 @@
+# Dépendances
+node_modules/
+package-lock.json
+yarn.lock
+
+# Variables d'environnement (SECRETS - NE JAMAIS COMMIT)
+.env
+.env.local
+.env.production
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Système d'exploitation
+.DS_Store
+Thumbs.db
+
+# Éditeurs / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Tests
+coverage/
+.nyc_output/
+
+# Build
+dist/
+build/
